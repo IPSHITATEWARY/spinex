@@ -1,0 +1,61 @@
+CREATE TABLE `galleries` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`userId` int NOT NULL,
+	`title` varchar(255) NOT NULL,
+	`description` text,
+	`thumbnail` varchar(512),
+	`isPublic` boolean DEFAULT false,
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	`updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
+	CONSTRAINT `galleries_id` PRIMARY KEY(`id`)
+);
+--> statement-breakpoint
+CREATE TABLE `galleryItems` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`galleryId` int NOT NULL,
+	`templateId` int NOT NULL,
+	`order` int DEFAULT 0,
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	CONSTRAINT `galleryItems_id` PRIMARY KEY(`id`)
+);
+--> statement-breakpoint
+CREATE TABLE `likes` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`userId` int NOT NULL,
+	`templateId` int NOT NULL,
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	CONSTRAINT `likes_id` PRIMARY KEY(`id`)
+);
+--> statement-breakpoint
+CREATE TABLE `templates` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`userId` int NOT NULL,
+	`title` varchar(255) NOT NULL,
+	`description` text,
+	`thumbnail` varchar(512),
+	`duration` int,
+	`elements` json,
+	`settings` json,
+	`isPublic` boolean DEFAULT false,
+	`views` int DEFAULT 0,
+	`likes` int DEFAULT 0,
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	`updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
+	CONSTRAINT `templates_id` PRIMARY KEY(`id`)
+);
+--> statement-breakpoint
+CREATE TABLE `videos` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`userId` int NOT NULL,
+	`title` varchar(255) NOT NULL,
+	`description` text,
+	`sourceUrl` varchar(512),
+	`videoUrl` varchar(512) NOT NULL,
+	`thumbnail` varchar(512),
+	`duration` int,
+	`metadata` json,
+	`source` varchar(50),
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	`updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
+	CONSTRAINT `videos_id` PRIMARY KEY(`id`)
+);
